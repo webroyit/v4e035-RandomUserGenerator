@@ -10,12 +10,15 @@ const app = Vue.createApp({
         }
     },
     methods: {
-        getUser() {
-            this.firstName = 'Jill';
-            this.lastName = 'Time';
-            this.email = 'jilltime123abc@mail.com';
-            this.gender = 'female';
-            this.picture = 'https://images.unsplash.com/photo-1554555819-f722cb0c01c5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=334&q=80';
+        async getUser() {
+            const res = await fetch('https://randomuser.me/api');
+            const { results } = await res.json();
+
+            this.firstName = results[0].name.first;
+            this.lastName =  results[0].name.last;
+            this.email =  results[0].email;
+            this.gender =  results[0].gender;
+            this.picture =  results[0].picture.large;
         }
     }
 });
